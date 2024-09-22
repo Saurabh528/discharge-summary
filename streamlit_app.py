@@ -127,7 +127,7 @@ if wav_audio_data:
 
     # Show the transcription result
     transcription_text = result['text']
-    st.write("Input Audio Data: ", transcription_text)
+    #st.write("Input Audio Data: ", transcription_text)
 
     # Text input for additional content
     additional_text = st.text_input("If you have anything else to add, type it here:")
@@ -140,7 +140,7 @@ if wav_audio_data:
         final_transcription = transcription_text + " " + additional_text.strip()
         st.session_state.final_transcription = final_transcription
         
-        st.write("Final Input Data: ", st.session_state.final_transcription)
+        #st.write("Final Input Data: ", st.session_state.final_transcription)
     
 # st.session_state.final_input_data = final_transcription
 
