@@ -4,4 +4,5 @@ python-docx
 streamlit-audiorec
 git+https://github.com/openai/whisper.git
 numpy==2.0
+streamlit-audiorecorder
 
