@@ -12,6 +12,9 @@ from investigations import create_patient_document
 from st_audiorec import st_audiorec
 import whisper
 import time
+from audiorecorder import audiorecorder
+
+
 
 
 ASSISTANT_ID = "asst_wTfRitYZNaIGHByiYw2SmQrn"
@@ -100,9 +103,13 @@ st.markdown("""
 if st.button("Reset App"):
     st.session_state.clear()
 
-# Audio recording component
-wav_audio_data = st_audiorec()
+
 final_transcription = None
+
+audio = audiorecorder("Click to record", "Click to stop recording")
+if len(audio) > 0:
+    # To play audio in frontend:
+    st.audio(audio.export().read())  
 
 uploaded_audio = st.file_uploader("Upload an audio file", type=['mp3', 'wav', 'ogg'])
 if uploaded_audio:
