@@ -106,18 +106,14 @@ final_transcription = None
 
 uploaded_audio = st.file_uploader("Upload an audio file", type=['mp3', 'wav', 'ogg'])
 if uploaded_audio:
-    file_path = os.path.join("tempDir", uploaded_audio.name)  # You can customize the directory
+    # file_path = os.path.join("tempDir", uploaded_audio.name)  # You can customize the directory
     
-    # Ensure the directory exists
-    os.makedirs("tempDir", exist_ok=True)
+    # # Ensure the directory exists
+    # os.makedirs("tempDir", exist_ok=True)
     
-    # Write the file to the temporary directory
-    with open(file_path, "wb") as f:
-        f.write(uploaded_audio.getbuffer())
-    # Load the 'tiny' model to ensure compatibility with Streamlit Cloud
-    model = whisper.load_model("tiny")
-    
-
+    # # Write the file to the temporary directory
+    # with open(file_path, "wb") as f:
+    #     f.write(uploaded_audio.getbuffer())
     
 
     model = whisper.load_model("tiny")
