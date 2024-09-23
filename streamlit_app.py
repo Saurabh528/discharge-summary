@@ -103,31 +103,31 @@ if st.button("Reset App"):
 # Audio recording component
 wav_audio_data = st_audiorec()
 final_transcription = None
-if wav_audio_data:
-    file_path = 'save_recorded_audio.wav'
-    
-    # Save the audio file as .wav
-    with open(file_path, "wb") as f:
-        f.write(wav_audio_data)
-    
-    st.success(f"WAV file saved successfully as {file_path}")
 
+uploaded_audio = st.file_uploader("Upload an audio file", type=['mp3', 'wav', 'ogg'])
+if uploaded_audio:
+    file_path = os.path.join("tempDir", uploaded_audio.name)  # You can customize the directory
+    
+    # Ensure the directory exists
+    os.makedirs("tempDir", exist_ok=True)
+    
+    # Write the file to the temporary directory
+    with open(file_path, "wb") as f:
+        f.write(uploaded_audio.getbuffer())
     # Load the 'tiny' model to ensure compatibility with Streamlit Cloud
     model = whisper.load_model("tiny")
-
-    # Transcribe the recorded audio
-    start = time.time()
-   
     
-        
-    result = model.transcribe(file_path)
-    end = time.time()
-    
-    # st.write("Transcription time: ", end - start)
 
-    # Show the transcription result
-    transcription_text = result['text']
-    #st.write("Input Audio Data: ", transcription_text)
+    
+
+    model = whisper.load_model("tiny")
+    transcription_text = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=uploaded_audio,
+        response_format="text"
+    )
+
+  
 
     # Text input for additional content
     additional_text = st.text_input("If you have anything else to add, type it here:")
@@ -143,8 +143,6 @@ if wav_audio_data:
         #st.write("Final Input Data: ", st.session_state.final_transcription)
     
 # st.session_state.final_input_data = final_transcription
-
-
 if final_transcription:
     thread = client.beta.threads.create(
     messages=[
